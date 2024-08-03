@@ -10,6 +10,7 @@
     "build": "tsc",
     "dev": "node --watch -r ts-node/register src/index.ts",
     "start": "node dist/src/index.js",
+    "tablegen": "node dist/generateTables.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -19,5 +20,8 @@
     "@types/node": "^22.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "convert-csv-to-json": "^2.48.0"
   }
 }
