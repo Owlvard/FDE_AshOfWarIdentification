@@ -1,0 +1,284 @@
+------------------------------------------
+-- Core: Includes from common_define
+------------------------------------------
+-- ivi: Constants for distinction of regular numbers to what exactly these mean.
+SWORD_ART_DIFF_CAT_DEFAULT = 0
+SWORD_ART_DIFF_CAT_LARGE_WEAPON = 2
+SWORD_ART_DIFF_CAT_POLEARM = 3
+SWORD_ART_DIFF_CAT_LARGE_WEAPON_SMALL_SHIELD = 4
+SWORD_ART_DIFF_CAT_POLEARM_SMALL_SHIELD = 5
+SWORD_ART_DIFF_CAT_LARGE_WEAPON_LARGE_SHIELD = 8
+SWORD_ART_DIFF_CAT_POLEARM_LARGE_SHIELD = 9
+
+-- Stores possible override animations that exist for Sword Arts.
+-- Key: Sword Art ID (TAE ID minus 600)
+-- Possible values:
+--
+-- 0: Idle (Default or Large Rapier)
+-- 2: Idle (Great Weapon)
+-- 3: Idle (Polearm)
+-- 4: Idle (Great Weapon) + Small Shield
+-- 5: Idle (Polearm) + Small Shield
+-- 8: Idle (Great Weapon) + Large Shield
+-- 9: Idle (Polearm) + Large Shield
+-- 20-59: Weapon Category
+SwordArtsCategory = {
+    [0] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [1] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_LARGE_WEAPON, SWORD_ART_DIFF_CAT_POLEARM, WEAPON_CATEGORY_FIST},
+    [2] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [3] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_LARGE_WEAPON, SWORD_ART_DIFF_CAT_POLEARM,
+           WEAPON_CATEGORY_TWINBLADE},
+    [4] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_LARGE_WEAPON, SWORD_ART_DIFF_CAT_POLEARM},
+    [5] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [6] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [7] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_LARGE_WEAPON, SWORD_ART_DIFF_CAT_POLEARM},
+    [8] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_LARGE_WEAPON, SWORD_ART_DIFF_CAT_POLEARM},
+    [9] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_LARGE_WEAPON, SWORD_ART_DIFF_CAT_POLEARM},
+    [10] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [11] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [12] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_LARGE_WEAPON, SWORD_ART_DIFF_CAT_POLEARM},
+    [13] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [14] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [15] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [16] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [17] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [18] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_POLEARM},
+    [19] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [20] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [21] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [22] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_POLEARM, WEAPON_CATEGORY_TWINBLADE},
+    [23] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_POLEARM, WEAPON_CATEGORY_TWINBLADE},
+    [24] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_LARGE_WEAPON, SWORD_ART_DIFF_CAT_POLEARM,
+            WEAPON_CATEGORY_TWINBLADE},
+    [25] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [50] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [51] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [52] = {SWORD_ART_DIFF_CAT_DEFAULT, WEAPON_CATEGORY_TWINBLADE},
+    [53] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [54] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_LARGE_WEAPON, WEAPON_CATEGORY_TWINBLADE},
+    [55] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [56] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [57] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_LARGE_WEAPON},
+    [58] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [59] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [61] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [62] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [63] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [64] = {SWORD_ART_DIFF_CAT_DEFAULT, WEAPON_CATEGORY_FIST},
+    [65] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_POLEARM},
+    [66] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [67] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [68] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [69] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [70] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [71] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [72] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [73] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [74] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [75] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [76] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [90] = {SWORD_ART_DIFF_CAT_DEFAULT, WEAPON_CATEGORY_LARGE_SHIELD, WEAPON_CATEGORY_SMALL_SHIELD},
+    [91] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_LARGE_WEAPON, SWORD_ART_DIFF_CAT_POLEARM,
+            SWORD_ART_DIFF_CAT_LARGE_WEAPON_SMALL_SHIELD, SWORD_ART_DIFF_CAT_POLEARM_SMALL_SHIELD,
+            SWORD_ART_DIFF_CAT_LARGE_WEAPON_LARGE_SHIELD, SWORD_ART_DIFF_CAT_POLEARM_LARGE_SHIELD,
+            WEAPON_CATEGORY_LARGE_SHIELD, WEAPON_CATEGORY_SMALL_SHIELD},
+    [92] = {SWORD_ART_DIFF_CAT_DEFAULT, WEAPON_CATEGORY_SHORT_SWORD, WEAPON_CATEGORY_CURVEDSWORD,
+            WEAPON_CATEGORY_SMALL_SHIELD},
+    [93] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_LARGE_WEAPON, SWORD_ART_DIFF_CAT_POLEARM},
+    [94] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [95] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [96] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [97] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [98] = {SWORD_ART_DIFF_CAT_DEFAULT, WEAPON_CATEGORY_LARGE_SHIELD, WEAPON_CATEGORY_SMALL_SHIELD},
+    [99] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [100] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [101] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [102] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [103] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [105] = {SWORD_ART_DIFF_CAT_DEFAULT, WEAPON_CATEGORY_LARGE_ARROW},
+    [106] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [108] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [110] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [107] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [109] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [111] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [112] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [113] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [114] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [115] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [116] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [117] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [118] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [130] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [131] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [132] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [133] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [134] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [135] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [136] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [137] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [140] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [141] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [142] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [143] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [144] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [150] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_LARGE_WEAPON, WEAPON_CATEGORY_FIST},
+    [151] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [152] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [155] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [156] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [157] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [160] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [165] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [166] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [167] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [168] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [196] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_LARGE_WEAPON, SWORD_ART_DIFF_CAT_POLEARM},
+    [256] = {SWORD_ART_DIFF_CAT_DEFAULT, WEAPON_CATEGORY_TWINBLADE},
+    [257] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [258] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [260] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [261] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [262] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [263] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [264] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [265] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [269] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [273] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [274] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [276] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [277] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [278] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [279] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [280] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [281] = {SWORD_ART_DIFF_CAT_DEFAULT, WEAPON_CATEGORY_DUELING_SHIELD},
+    [282] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [283] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [284] = {SWORD_ART_DIFF_CAT_DEFAULT, SWORD_ART_DIFF_CAT_LARGE_WEAPON, SWORD_ART_DIFF_CAT_POLEARM},
+    [285] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [286] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [305] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [357] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [340] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [341] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [342] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [343] = {SWORD_ART_DIFF_CAT_DEFAULT},
+    [399] = {SWORD_ART_DIFF_CAT_DEFAULT}
+}
+
+-- Determines which override of a Sword Art animation to play, based on the size or type of the weapon.
+-- The return of this function is processed to a different ID by the cases that use it.
+--
+-- artID: Weapon Arts ID (TAE id minus 600)
+--      swordArtsTypeNew in SwordArtsParam
+-- idleCat: Stay Anim Category (Idle animation index for weapon)
+--      wepmotionOneHandId and wepmotionBothHandId in EquipParamWeapon
+-- wepCat: Weapon Animation Category (TAE ID for weapon type)
+--      wepmotionCategory in EquipParamWeapon
+--
+-- Possible returns:
+--
+-- 0: Idle (Default or Large Rapier)
+-- 2: Idle (Great Weapon)
+-- 3: Idle (Polearm)
+-- 4: Idle (Great Weapon) + Small Shield
+-- 5: Idle (Polearm) + Small Shield
+-- 8: Idle (Great Weapon) + Large Shield
+-- 9: Idle (Polearm) + Large Shield
+-- 20-59: Weapon Category
+function GetSwordArtsDiffCategory(artID, idleCat, wepCat)
+    -- If TAE ID above 770 (except 796), no overrides, only a single default animation. Also DLC stuff
+    if 170 <= artID and artID < 255 and artID ~= 196 or artID >= 300 and artID ~= 305 and artID ~= 357 and artID ~= 399 or artID == 275 or artID == 272 then
+        return SWORD_ART_DIFF_CAT_DEFAULT
+    end
+    -- For TAE ID 769 (Radahn's Rain), return 45 (Greatbow)
+    if artID == 169 then
+        return WEAPON_CATEGORY_LARGE_ARROW
+    end
+
+    -- Allows some weapon categories to query for whether the Sword Art permits a cousin category.
+    -- Only used to allow Claws to use Fist Sword Arts.
+    local wep_cat1 = wepCat
+    if wepCat == WEAPON_CATEGORY_CLAW then
+        wep_cat1 = WEAPON_CATEGORY_FIST
+    elseif wep_cat1 == WEAPON_CATEGORY_LIGHT_LARGE_SWORD then
+        return 0
+    end
+
+    -- Idle animation TAEs. Two-hand is ignored.
+    local idle_cat0 = idleCat
+    if idle_cat0 >= 10 then
+        idle_cat0 = idle_cat0 - 10
+    end
+
+    -- Override for heavy thrusting swords (usually 3)
+    if wepCat == WEAPON_CATEGORY_LARGE_RAPIER then
+        idle_cat0 = SWORD_ART_DIFF_CAT_DEFAULT
+    end
+
+    if (artID == 90 or artID == 98 or artID == 151 or artID == 152) and env(GetEquipWeaponCategory, c_SwordArtsHand) == WEAPON_CATEGORY_DUELING_SHIELD and (c_Style == HAND_LEFT or c_Style == HAND_RIGHT) then
+        return 0
+    end
+
+    -- ivi: CASE 0: Not in table
+    if SwordArtsCategory[artID] == nil then
+        return SWORD_ART_DIFF_CAT_DEFAULT
+    end
+
+    -- CASE 1: Shields
+    if c_SwordArtsHand == HAND_LEFT and c_Style ~= HAND_LEFT_BOTH then
+        local shield_cat = -1
+        if idle_cat0 == 2 and wepCat == WEAPON_CATEGORY_SMALL_SHIELD then
+            shield_cat = SWORD_ART_DIFF_CAT_LARGE_WEAPON_SMALL_SHIELD
+        elseif idle_cat0 == 3 and wepCat == WEAPON_CATEGORY_SMALL_SHIELD then
+            shield_cat = SWORD_ART_DIFF_CAT_POLEARM_SMALL_SHIELD
+        elseif idle_cat0 == 2 and wepCat == WEAPON_CATEGORY_LARGE_SHIELD then
+            shield_cat = SWORD_ART_DIFF_CAT_LARGE_WEAPON_LARGE_SHIELD
+        elseif idle_cat0 == 3 and wepCat == WEAPON_CATEGORY_LARGE_SHIELD then
+            shield_cat = SWORD_ART_DIFF_CAT_POLEARM_LARGE_SHIELD
+        end
+        if shield_cat ~= -1 then
+            -- Only check if shields
+            for i = 1, #SwordArtsCategory[artID], 1 do
+                if SwordArtsCategory[artID][i] == shield_cat then
+                    env(DebugLogOutput, "GetSwordArtsDiffCategory shield_cat:" .. shield_cat)
+                    return shield_cat
+                end
+            end
+        end
+    end
+
+    -- CASE 2: Weapon Categories
+    for j = 1, #SwordArtsCategory[artID], 1 do
+        if SwordArtsCategory[artID][j] == wepCat then
+            env(DebugLogOutput, "GetSwordArtsDiffCategory wepCat0:" .. wepCat)
+            return wepCat
+        end
+    end
+
+    -- ivi: Additional check to avoid unnecessary second loop
+    if wep_cat1 ~= nil then
+        -- CASE 3: Auxiliary weapon category (Some weapon categories count the same as others)
+        for j = 1, #SwordArtsCategory[artID], 1 do
+            if SwordArtsCategory[artID][j] == wep_cat1 then
+                env(DebugLogOutput, "GetSwordArtsDiffCategory wepCat1:" .. wep_cat1)
+                return wep_cat1
+            end
+        end
+    end
+
+    -- Shield Arts (90 is Shield Bash, 99 is Thops Barrier)
+    if artID >= 90 and artID <= 99 and (c_SwordArtsHand ~= HAND_LEFT or c_Style == HAND_LEFT_BOTH) then
+        return SWORD_ART_DIFF_CAT_DEFAULT
+    end
+
+    -- CASE 4: Idle categories
+    for j = 1, #SwordArtsCategory[artID], 1 do
+        if SwordArtsCategory[artID][j] == idle_cat0 then
+            env(DebugLogOutput, "GetSwordArtsDiffCategory idle_cat0:" .. idle_cat0)
+            return idle_cat0
+        end
+    end
+
+    return SWORD_ART_DIFF_CAT_DEFAULT
+end
