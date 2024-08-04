@@ -1,0 +1,44 @@
+function IsStanceArts(arts_id)
+    local aow_list = {
+        10, -- Wild Strikes
+        11, -- Spinning Strikes
+        14, -- Unsheathe
+        15, -- Square Off
+        21, -- UNUSED
+        25, -- Spinning Chain
+        100, -- Through and Through
+        101, -- Barrage
+        102, -- Mighty Shot
+        103, -- Enchanted Shot
+        104, -- UNUSED
+        105, -- Rain of Arrows
+        106, -- UNUSED
+        107, -- UNUSED
+        108, -- Sky Shot
+        169, -- Radahn's Rain
+        178, -- Transient Moonlight
+        219, -- Night-and-Flame Stance
+        239, -- Spinning Wheel
+
+        278, -- Overhead Stance
+        279, -- Wing Stance
+        309, -- Unending Dance
+        318, -- Moon-and-Fire Stance
+        335, -- Repeating Fire
+        337, -- Fan Shot
+        340, -- UNUSED
+        341, -- UNUSED
+        342, -- UNUSED
+        343, -- UNUSED
+        346, -- UNUSED
+        347, -- UNUSED
+        357, -- Igor's Drake Hunt
+        371  -- Rancor Shot
+    }
+
+    if Contains(aow_list, arts_id) == TRUE then
+        return TRUE
+    else
+        return FALSE
+    end
+end

@@ -1,0 +1,37 @@
+function GetSwordArtsRequestNew()
+    local style = c_Style
+    local is_both = FALSE
+    local arts_hand = c_SwordArtsHand
+    local arts_id = c_SwordArtsID
+    local request = SWORDART_REQUEST_INVALID
+    local arts_category = arts_id + 600
+    local animID = SWORDARTS_ANIM_ID_RIGHT_NORMAL
+
+    if IsStanceArts(arts_id) == TRUE then
+        request = SWORDARTS_REQUEST_RIGHT_STANCE
+        animID = SWORDARTS_ANIM_ID_RIGHT_STANCE_START
+    elseif env(GetSpEffectID, 100052) == TRUE then
+        request = SWORDARTS_REQUEST_RIGHT_COMBO_1
+        animID = SWORDARTS_ANIM_ID_RIGHT_COMBO_1
+    elseif env(GetSpEffectID, 100053) == TRUE then
+        request = SWORDARTS_REQUEST_RIGHT_COMBO_2
+        animID = SWORDARTS_ANIM_ID_RIGHT_COMBO_2
+    elseif IsRollingArts(arts_id) == TRUE then
+        request = SWORDARTS_REQUEST_RIGHT_STEP
+        animID = SWORDARTS_ANIM_ID_RIGHT_STEP_FRONT
+    elseif (style == HAND_LEFT_BOTH or style == HAND_RIGHT_BOTH) and IsShieldArts(arts_id) == TRUE then
+        request = SWORDARTS_REQUEST_BOTH_NORMAL
+        animID = SWORDARTS_ANIM_ID_BOTH_NORMAL
+    elseif arts_hand == HAND_LEFT and IsShieldArts(arts_id) == TRUE then
+        request = SWORDARTS_REQUEST_LEFT_NORMAL
+        animID = SWORDARTS_ANIM_ID_LEFT_NORMAL
+    else
+        request = SWORDARTS_REQUEST_RIGHT_NORMAL
+        animID = SWORDARTS_ANIM_ID_RIGHT_NORMAL
+    end
+
+    act(DebugLogOutput,
+        "SwordArtRequest " .. request .. " artsId=" .. arts_id .. "animID=a" .. arts_category .. "_" .. animID)
+
+    return request
+end

@@ -1,0 +1,364 @@
+function SwordArtsOneShot_onUpdate()
+    local canThrow = FALSE
+    if c_SwordArtsID == 130 or c_SwordArtsID == 55 or c_SwordArtsID == 323 then
+        canThrow = TRUE
+    end
+    if env(GetSpEffectID, 102050) == TRUE then
+        act(LockonFixedAngleCancel)
+    end
+    local r1 = "W_AttackRightLight1"
+    local b1 = "W_AttackBothLight1"
+    local r2 = "W_AttackRightHeavy1Start"
+    local b2 = "W_AttackBothHeavy1Start"
+
+    if env(GetSpEffectID, 100054) == TRUE then
+        r1 = "W_SwordArtsOneShotComboEnd"
+        b1 = "W_SwordArtsOneShotComboEnd"
+    elseif env(GetSpEffectID, 100055) == TRUE then
+        r1 = "W_SwordArtsOneShotComboEnd_2"
+        b1 = "W_SwordArtsOneShotComboEnd_2"
+    end
+    if env(GetSpEffectID, 100050) == TRUE then
+        r2 = "W_SwordArtsOneShotComboEnd"
+        b2 = "W_SwordArtsOneShotComboEnd"
+    elseif env(GetSpEffectID, 100051) == TRUE then
+        r2 = "W_SwordArtsOneShotComboEnd_2"
+        b2 = "W_SwordArtsOneShotComboEnd_2"
+    end
+    if c_SwordArtsID == 157 or c_SwordArtsID == 113 then
+        r1 = "W_AttackRightLightStep"
+        b1 = "W_AttackBothLightStep"
+    end
+    if c_SwordArtsID == 1 or c_SwordArtsID == 2 or c_SwordArtsID == 6 or c_SwordArtsID == 7 or c_SwordArtsID == 130
+        or c_SwordArtsID == 131 or c_SwordArtsID == 170 or c_SwordArtsID == 171 or c_SwordArtsID == 191 or c_SwordArtsID
+        == 198 or c_SwordArtsID == 65 or c_SwordArtsID == 243 or c_SwordArtsID == 283 or c_SwordArtsID == 300
+        or c_SwordArtsID == 370 then
+        r1 = "W_AttackRightLight2"
+        b1 = "W_AttackBothLight2"
+    end
+    if (c_SwordArtsID == 115 or c_SwordArtsID == 116 or c_SwordArtsID == 193) and env(GetSpEffectID, 100660) == TRUE then
+        if env(IsTruelyLanding) == TRUE then
+            ExecEventAllBody("W_SwordArtsLoopEnd")
+        else
+            ExecEventAllBody("W_SwordArtsLoopLoop")
+        end
+    end
+    if c_SwordArtsID == 229 or c_SwordArtsID == 323 then
+        if env(IsAnimEnd, 0) == TRUE then
+            ExecEventAllBody("W_SwordArtsLoopEnd")
+        elseif env(GetSpEffectID, 100670) == TRUE and env(IsTruelyLanding) == TRUE then
+            ExecEventAllBody("W_SwordArtsLoopEnd")
+        end
+    end
+    if ArtsCommonFunction(r1, r2, "W_AttackLeftLight1", "W_AttackLeftHeavy1", b1, b2, FALSE, TRUE, TRUE, TRUE, canThrow,
+        ALLBODY) == TRUE then
+        return
+    end
+    if env(ActionDuration, ACTION_ARM_L2) <= 0 then
+        if env(GetSpEffectID, 100285) == TRUE then
+            local idle_cat = env(GetStayAnimCategory)
+            local wep_cat = env(GetEquipWeaponCategory, c_SwordArtsHand)
+            local arts_cat = GetSwordArtsDiffCategory(c_SwordArtsID, idle_cat, wep_cat)
+            local arts_idx = 0
+
+            if arts_cat == WEAPON_CATEGORY_LARGE_SHIELD then
+                arts_idx = 1
+            elseif arts_cat == WEAPON_CATEGORY_SMALL_SHIELD then
+                arts_idx = 2
+            elseif arts_cat == WEAPON_CATEGORY_DUELING_SHIELD then
+                arts_idx = 3
+            elseif arts_cat == SWORD_ART_DIFF_CAT_LARGE_WEAPON then
+                arts_idx = 4
+            elseif arts_cat == SWORD_ART_DIFF_CAT_POLEARM then
+                arts_idx = 5
+            end
+
+            SetVariable("SwordArtsChargeCategory", arts_idx)
+            ExecEventAllBody("W_SwordArtsChargeCancelEarly")
+            return
+        elseif env(GetSpEffectID, 100286) == TRUE then
+            ExecEventAllBody("W_SwordArtsChargeCancelLate")
+            return
+        end
+    end
+    if c_SwordArtsID == 356 then
+        act(ReserveArtsPointsUse, ACTION_ARM_L2, c_SwordArtsHand)
+        if env(HasEnoughArtsPoints, ACTION_ARM_L2, c_SwordArtsHand) == FALSE and env(GetSpEffectID, 100285) == TRUE then
+            ExecEventAllBody("W_SwordArtsChargeCancelEarly")
+        end
+    end
+    if env(IsAnimEnd, 0) == TRUE then
+        local arts_category = c_SwordArtsID + 600
+        local loop_animID = SWORDARTS_ANIM_ID_RIGHT_LOOP
+        if env(DoesAnimExist, arts_category, loop_animID) == TRUE
+            and (c_SwordArtsID ~= 201 and c_SwordArtsID ~= 202 or GetVariable("IsEnoughArtPointsL2") == FALSE) then
+            if env(ActionDuration, ACTION_ARM_L2) > 0 then
+                ExecEventAllBody("W_SwordArtsLoopLoop")
+            else
+                ExecEventAllBody("W_SwordArtsLoopEnd")
+            end
+            return
+        end
+        SetArtsGeneratorTransitionIndex()
+        ExecEventAllBody("W_Idle")
+        return
+    end
+end
+
+function SwordArtsOneShotShieldLeft_onUpdate()
+    local index = SWORDARTS_PARRY + GetVariable("SwordArtsOneShotShieldIndex")
+    local canThrow = FALSE
+
+    if index == SWORDARTS_PARRY or index == SWORDARTS_SPELL_PARRY or index == SWORDARTS_PROJECTILE_PARRY or index
+        == SWORDARTS_BUCKLER_PARRY or index == SWORDARTS_DAGGER_PARRY then
+        canThrow = TRUE
+    end
+
+    if env(ActionDuration, ACTION_ARM_L2) <= 0 then
+        local idle_cat = env(GetStayAnimCategory)
+        local wep_cat = env(GetEquipWeaponCategory, c_SwordArtsHand)
+        local arts_cat = GetSwordArtsDiffCategory(c_SwordArtsID, idle_cat, wep_cat)
+        local arts_idx = 0
+
+        if arts_cat == WEAPON_CATEGORY_LARGE_SHIELD then
+            arts_idx = 1
+        elseif arts_cat == WEAPON_CATEGORY_SMALL_SHIELD then
+            arts_idx = 2
+        end
+
+        SetVariable("SwordArtsOneShotShieldCancelCategory", arts_idx)
+
+        if env(GetSpEffectID, 100285) == TRUE then
+            ExecEventAllBody("W_SwordArtsOneShotShieldLeft_Cancel")
+        elseif env(GetSpEffectID, 100286) == TRUE then
+            ExecEventAllBody("W_SwordArtsOneShotShieldLeft_Cancel")
+        end
+    end
+    if ArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1",
+        "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE, TRUE, TRUE, canThrow, ALLBODY) == TRUE then
+        return
+    end
+    if env(IsAnimEnd, 0) == TRUE then
+        local arts_category = c_SwordArtsID + 600
+        local loop_animID = SWORDARTS_ANIM_ID_RIGHT_LOOP
+        if env(DoesAnimExist, arts_category, loop_animID) == TRUE
+            and (c_SwordArtsID ~= 201 and c_SwordArtsID ~= 202 or GetVariable("IsEnoughArtPointsL2") == FALSE) then
+            if env(ActionDuration, ACTION_ARM_L2) > 0 then
+                ExecEventAllBody("W_SwordArtsLeftLoopLoop")
+            else
+                ExecEventAllBody("W_SwordArtsLeftLoopEnd")
+            end
+            return
+        end
+        SetArtsGeneratorTransitionIndex()
+        ExecEventAllBody("W_Idle")
+        return
+    end
+end
+
+function SwordArtsHalfOneShotShieldLeft_Upper_onUpdate()
+    local index = SWORDARTS_PARRY + GetVariable("SwordArtsOneShotShieldIndex")
+    local canThrow = FALSE
+    if index == SWORDARTS_PARRY or index == SWORDARTS_SPELL_PARRY or index == SWORDARTS_PROJECTILE_PARRY or index
+        == SWORDARTS_BUCKLER_PARRY or index == SWORDARTS_DAGGER_PARRY then
+        canThrow = TRUE
+    end
+    local blend_type, lower_state = GetHalfBlendInfo()
+    local idle_cat = env(GetStayAnimCategory)
+    local wep_cat = env(GetEquipWeaponCategory, c_SwordArtsHand)
+    local arts_cat = GetSwordArtsDiffCategory(c_SwordArtsID, idle_cat, wep_cat)
+    local arts_idx = 0
+
+    if arts_cat == WEAPON_CATEGORY_LARGE_SHIELD then
+        arts_idx = 1
+    elseif arts_cat == WEAPON_CATEGORY_SMALL_SHIELD then
+        arts_idx = 2
+    end
+
+    SetVariable("SwordArtsOneShotShieldCancelCategory", arts_idx)
+
+    if 0 >= env(ActionDuration, ACTION_ARM_L2) then
+        if env(GetSpEffectID, 100285) == TRUE then
+            ExecEventAllBody("W_SwordArtsOneShotShieldLeft_Cancel")
+        elseif env(GetSpEffectID, 100286) == TRUE then
+            ExecEventAllBody("W_SwordArtsOneShotShieldLeft_Cancel")
+        end
+    end
+    if ArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1",
+        "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE, TRUE, FALSE, canThrow, ALLBODY) == TRUE then
+        return
+    end
+    if env(IsAnimEnd, 1) == TRUE then
+        local arts_category = c_SwordArtsID + 600
+        local loop_animID = SWORDARTS_ANIM_ID_RIGHT_LOOP
+        if env(DoesAnimExist, arts_category, loop_animID) == TRUE
+            and (c_SwordArtsID ~= 201 and c_SwordArtsID ~= 202 or GetVariable("IsEnoughArtPointsL2") == FALSE) then
+            if 0 < env(ActionDuration, ACTION_ARM_L2) then
+                if c_SwordArtsID == 334 then
+                    SetVariable("IsMadTorch", 1)
+                else
+                    SetVariable("IsMadTorch", 0)
+                end
+                if c_SwordArtsID == 334 and GetVariable("IsEnoughArtPointsL2") == TRUE then
+                    ExecEventHalfBlend(Event_SwordArtsHalfLeftLoopEnd, blend_type)
+                else
+                    ExecEventHalfBlend(Event_SwordArtsHalfLeftLoopLoop, blend_type)
+                end
+            else
+                ExecEventHalfBlend(Event_SwordArtsHalfLeftLoopEnd, blend_type)
+            end
+            return
+        end
+        SetArtsGeneratorTransitionIndex()
+        ExecEventAllBody("W_Idle")
+        return
+    end
+    if lower_state == LOWER_IDLE then
+        act(LockonSystemUnableToTurnAngle, 45, 45)
+    elseif lower_state == LOWER_TURN then
+        SetVariable("TurnType", TURN_TYPE_DEFAULT)
+    end
+    if lower_state == LOWER_MOVE and env(IsMoveCancelPossible) == TRUE then
+        ExecEventHalfBlendNoReset(Event_Move, UPPER)
+        return
+    end
+    if HalfBlendUpperCommonFunction(lower_state) == TRUE then
+        return
+    end
+    if HalfBlendLowerCommonFunction(Event_SwordArtsHalfOneShotShieldLeft, lower_state, FALSE) == TRUE then
+        return
+    end
+end
+
+function SwordArtsOneShotShieldBoth_onUpdate()
+    local index = SWORDARTS_PARRY + GetVariable("SwordArtsOneShotShieldIndex")
+    local canThrow = FALSE
+    if index == SWORDARTS_PARRY or index == SWORDARTS_SPELL_PARRY or index == SWORDARTS_PROJECTILE_PARRY or index
+        == SWORDARTS_BUCKLER_PARRY or index == SWORDARTS_DAGGER_PARRY then
+        canThrow = TRUE
+    end
+    if env(ActionDuration, ACTION_ARM_L2) <= 0 then
+        local idle_cat = env(GetStayAnimCategory)
+        local wep_cat = env(GetEquipWeaponCategory, c_SwordArtsHand)
+        local arts_cat = GetSwordArtsDiffCategory(c_SwordArtsID, idle_cat, wep_cat)
+        local arts_idx = 0
+
+        if arts_cat == 47 then
+            arts_idx = 1
+        elseif arts_cat == 48 then
+            arts_idx = 2
+        elseif arts_cat == 57 then
+            arts_idx = 3
+        end
+        SetVariable("SwordArtsOneShotShieldCancelCategory", arts_idx)
+        if env(GetSpEffectID, 100285) == TRUE then
+            ExecEventAllBody("W_SwordArtsOneShotShieldBoth_Cancel")
+        elseif env(GetSpEffectID, 100286) == TRUE then
+            ExecEventAllBody("W_SwordArtsOneShotShieldBoth_Cancel")
+        end
+    end
+    if ArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1",
+        "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE, TRUE, TRUE, canThrow, ALLBODY) == TRUE then
+        return
+    end
+    if env(IsAnimEnd, 0) == TRUE then
+        local arts_category = c_SwordArtsID + 600
+        local loop_animID = SWORDARTS_ANIM_ID_RIGHT_LOOP
+        if env(DoesAnimExist, arts_category, loop_animID) == TRUE
+            and (c_SwordArtsID ~= 201 and c_SwordArtsID ~= 202 or GetVariable("IsEnoughArtPointsL2") == FALSE) then
+            if env(ActionDuration, ACTION_ARM_L2) > 0 then
+                ExecEventAllBody("W_SwordArtsBothLoopLoop")
+            else
+                ExecEventAllBody("W_SwordArtsBothLoopEnd")
+            end
+            return
+        end
+        SetArtsGeneratorTransitionIndex()
+        ExecEventAllBody("W_Idle")
+        return
+    end
+end
+
+function SwordArtsHalfOneShotShieldBoth_Upper_onUpdate()
+    local index = SWORDARTS_PARRY + GetVariable("SwordArtsOneShotShieldIndex")
+    local canThrow = FALSE
+    if index == SWORDARTS_PARRY or index == SWORDARTS_SPELL_PARRY or index == SWORDARTS_PROJECTILE_PARRY or index
+        == SWORDARTS_BUCKLER_PARRY or index == SWORDARTS_DAGGER_PARRY then
+        canThrow = TRUE
+    end
+    local blend_type, lower_state = GetHalfBlendInfo()
+    local idle_cat = env(GetStayAnimCategory)
+    local wep_cat = env(GetEquipWeaponCategory, c_SwordArtsHand)
+    local arts_cat = GetSwordArtsDiffCategory(c_SwordArtsID, idle_cat, wep_cat)
+
+    local arts_idx = 0
+    if arts_cat == 47 then
+        arts_idx = 1
+    elseif arts_cat == 48 then
+        arts_idx = 2
+    end
+    SetVariable("SwordArtsOneShotShieldCancelCategory", arts_idx)
+    if 0 >= env(ActionDuration, ACTION_ARM_L2) then
+        if env(GetSpEffectID, 100285) == TRUE then
+            ExecEventAllBody("W_SwordArtsOneShotShieldBoth_Cancel")
+        elseif env(GetSpEffectID, 100286) == TRUE then
+            ExecEventAllBody("W_SwordArtsOneShotShieldBoth_Cancel")
+        end
+    end
+    if ArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1",
+        "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE, TRUE, FALSE, canThrow, ALLBODY) == TRUE then
+        return
+    end
+    if env(IsAnimEnd, 1) == TRUE then
+        local arts_category = c_SwordArtsID + 600
+        local loop_animID = SWORDARTS_ANIM_ID_RIGHT_LOOP
+        if env(DoesAnimExist, arts_category, loop_animID) == TRUE
+            and (c_SwordArtsID ~= 201 and c_SwordArtsID ~= 202 or GetVariable("IsEnoughArtPointsL2") == FALSE) then
+            if 0 < env(ActionDuration, ACTION_ARM_L2) then
+                if c_SwordArtsID == 334 then
+                    SetVariable("IsMadTorch", 1)
+                else
+                    SetVariable("IsMadTorch", 0)
+                end
+                if c_SwordArtsID == 334 and GetVariable("IsEnoughArtPointsL2") == TRUE then
+                    ExecEventHalfBlend(Event_SwordArtsHalfBothLoopEnd, blend_type)
+                else
+                    ExecEventHalfBlend(Event_SwordArtsHalfBothLoopLoop, blend_type)
+                end
+            else
+                ExecEventHalfBlend(Event_SwordArtsHalfBothLoopEnd, blend_type)
+            end
+            return
+        end
+        SetArtsGeneratorTransitionIndex()
+        ExecEventAllBody("W_Idle")
+        return
+    end
+    if lower_state == LOWER_IDLE then
+        act(LockonSystemUnableToTurnAngle, 45, 45)
+    elseif lower_state == LOWER_TURN then
+        SetVariable("TurnType", TURN_TYPE_DEFAULT)
+    end
+    if lower_state == LOWER_MOVE and env(IsMoveCancelPossible) == TRUE then
+        ExecEventHalfBlendNoReset(Event_Move, UPPER)
+        return
+    end
+    if HalfBlendUpperCommonFunction(lower_state) == TRUE then
+        return
+    end
+    if HalfBlendLowerCommonFunction(Event_SwordArtsHalfOneShotShieldBoth, lower_state, FALSE) == TRUE then
+        return
+    end
+end
+
+function SetSwordArtsWepCategory_DrawStanceRightAttackLight()
+    local idle_cat = env(GetStayAnimCategory)
+    local wep_cat = env(GetEquipWeaponCategory, c_SwordArtsHand)
+    local arts_cat = GetSwordArtsDiffCategory(c_SwordArtsID, idle_cat, wep_cat)
+    local arts_idx = 0
+
+    if arts_cat == WEAPON_CATEGORY_LARGE_ARROW then
+        arts_idx = 1
+    end
+    SetVariable("DrawStanceRightAttackLightCategory", arts_idx)
+end

@@ -17,7 +17,7 @@ import { changeFileExt } from './util'
             
             json = json
                 .filter(e => e.sortId !== 999_999 && e.sortId !== 9_999_999) // don't include cut content
-                .filter(e => e.iconId || e.iconIdM) // check if they have an iconId, intentionally treating 0 as false.
+                .filter(e => e.Name !== '') // assume no name means a faulty row
                 .filter(e => !Object.hasOwn(e, 'wepType') || e.ID.toString().endsWith('0000')) // don't include alternate affinities
 
             fs.writeFileSync(path.join('./data/params/json', changeFileExt(csvFile, '.json')), JSON.stringify(json, null, 4), 'utf8')

@@ -1,0 +1,40 @@
+function IsShieldArts(arts_id)
+    local aow_list = {
+        17, -- Torch Attack
+        71, -- Firebreather
+        90, -- Shield Bash
+        91, -- Barricade Shield
+        92, -- Parry
+        93, -- Buckler Parry
+        95, -- Carian Retaliation
+        96, -- Storm Wall
+        97, -- Golden Parry
+        98, -- Shield Crash
+        99, -- Thops's Barrier
+        151, -- Vow of the Indomitable
+        152, -- Holy Ground
+        195, -- Fires of Slumber
+        196, -- Golden Retaliation
+        197, -- Contagious Fury
+        201, -- Flame Spit
+        202, -- Tongues of Fire
+        207, -- Viper Bite
+        211, -- Bear Witness!
+
+        322, -- Sleep Evermore
+        324, -- Moore's Charge
+        348, -- Discus Hurl
+        352, -- Revenge of the Night
+        354, -- Blindfold of Happiness
+        355, -- Blindfold of Happiness (2?)
+        359, -- Roaring Bash
+        399, -- Shield Strike
+        334  -- Feeble Lord's Frenzied Flame
+    }
+
+    if Contains(aow_list, arts_id) == TRUE then
+        return TRUE
+    else
+        return FALSE
+    end
+end

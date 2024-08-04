@@ -1,0 +1,16 @@
+function IsRollingArts(arts_id)
+    local aow_list = {
+        155, -- Quickstep
+        156, -- Bloodhound's Step
+
+        273, -- Raging Beast
+        276, -- Blind Spot
+        313  -- Dynastic Sickleplay
+    }
+
+    if Contains(aow_list, arts_id) == TRUE then
+        return TRUE
+    else
+        return FALSE
+    end
+end

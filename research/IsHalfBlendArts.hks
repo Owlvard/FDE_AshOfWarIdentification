@@ -1,0 +1,27 @@
+function IsHalfBlendArts(arts_id)
+    local aow_list = {
+        20, -- Spinning Weapon
+        58, -- Gravitas
+        168, -- Zamor Ice Storm
+        182, -- Knowledge Above All
+        183, -- Devourer of Worlds
+        184, -- Familal Rancor
+        199, -- Spinning Weapon
+        202, -- Tongues of Fire
+        203, -- Oracular Bubble
+        206, -- Sea of Magma
+        213, -- Soul Stifler
+        217, -- Glintstone Dart
+
+        264, -- Wall of Sparks
+        328, -- Euporia Vortex
+        334, -- Feeble Lord's Frenzied Flame
+        335  -- Repeating Fire
+    }
+
+    if Contains(aow_list, arts_id) == TRUE then
+        return TRUE
+    else
+        return FALSE
+    end
+end

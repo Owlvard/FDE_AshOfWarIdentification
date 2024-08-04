@@ -9,9 +9,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "node --watch -r ts-node/register src/index.ts",
-    "start": "node dist/src/index.js",
-    "tablegen": "node dist/generateTables.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "tablegen": "node dist/src/generateTables.js",
+    "test": "node dist/src/test.js"
   },
   "keywords": [],
   "author": "",
